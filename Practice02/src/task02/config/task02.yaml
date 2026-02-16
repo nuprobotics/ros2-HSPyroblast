@@ -1,1 +1,4 @@
-topic_name: /spgc/receiver
+publisher:
+  ros__parameters:
+    topic_name: /spgc/receiver
+    text: Hello, ROS2!
