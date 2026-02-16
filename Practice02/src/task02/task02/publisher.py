@@ -1,0 +1,32 @@
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String
+
+class Publisher(Node):
+    def __init__(self):
+        super().__init__('publisher')
+
+        self.declare_parameter('topic_name', '/spgc/receiver')
+        self.declare_parameter('text', 'Hello, ROS2!')
+
+        topic_name = self.get_parameter('topic_name').get_parameter_value().string_value
+        self.text = self.get_parameter('text').get_parameter_value().string_value
+
+        self.publisher = self.create_publisher(String, topic_name, 10)
+        self.get_logger().info(f"Publisher started on topic '{topic_name}' with default text '{self.text}'")
+
+        self.publish_message()
+    
+    def publish_message(self):
+        msg = String()
+        msg.data = self.text
+        self.publisher.publish(msg)
+        self.get_logger().info(f'Published message: "{msg.data}"')
+        
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = Publisher()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()

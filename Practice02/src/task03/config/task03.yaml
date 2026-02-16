@@ -1,0 +1,2 @@
+service_name: /trigger_service
+default_string: "No service available"
