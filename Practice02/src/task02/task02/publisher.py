@@ -27,6 +27,6 @@ class Publisher(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = Publisher()
-    rclpy.spin(node)
+    rclpy.spin_once(node)
     node.destroy_node()
     rclpy.shutdown()
